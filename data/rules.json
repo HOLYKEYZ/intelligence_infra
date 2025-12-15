@@ -1,0 +1,13 @@
+{
+    "rules":[
+        {
+            "rule_id":"r_temp_range",
+            "type":"constraints",
+            "field":"temperature",
+            "min": -20,
+            "max":60,
+            "confidence":0.91,
+            "status":"stable"
+        }
+    ]
+}
