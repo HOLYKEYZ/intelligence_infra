@@ -6,7 +6,7 @@ from pipeline.sensor_pipeline import (
     write_semantic_tokens
 )
 
-mcp = FastMCP("autonomous-agent")
+mcp = FastMCP("127.0.0.1")
 
 @mcp.tool()
 def run_pipeline():
@@ -15,3 +15,6 @@ def run_pipeline():
     tokens = generate_tokens(data, rules)
     write_semantic_tokens(tokens)
     return "Pipeline executed safely"
+
+if __name__ == "__main__":
+    mcp.run()
