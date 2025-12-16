@@ -9,3 +9,34 @@ class RangeToken(BaseModel):
 
 import json
 from dagster import asset
+from datetime import datetime
+
+@asset
+def ingest_realtime():
+    with open("data/rules.json") as f:
+        return json.load(f)['rules']
+@asset
+def generate_tokens(ingest_realtime, load_rules):
+    tokens = []
+
+    payload = ingest_realtime["payload"]
+
+    for rule in load_rules:
+        if rule["status"] != "stable":
+            continue
+
+        if rule["field"] == "temperature":
+            value = payload["temperature"]
+            if rule["min"] <= value <= rule["max"]:
+                token = RangeToken(
+                    field="temperature_celsius",
+                    value=(value - 1, value + 1),
+                    confidence=rule["confidence"]
+                )
+                tokens.append(token.dict())
+
+    return {
+        "entity": "sensor_reading",
+        "tokens": tokens,
+        "timestamp": datetime.utcnow().isoformat()
+    }
