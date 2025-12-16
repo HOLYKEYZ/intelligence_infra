@@ -13,8 +13,13 @@ from datetime import datetime
 
 @asset
 def ingest_realtime():
+    with open("data/realtime_data.json") as f:
+        return json.load(f)
+@asset
+def load_rules():
     with open("data/rules.json") as f:
-        return json.load(f)['rules']
+        return json.load(f)["rules"]
+
 @asset
 def generate_tokens(ingest_realtime, load_rules):
     tokens = []
