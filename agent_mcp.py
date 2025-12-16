@@ -1,5 +1,5 @@
 from mcp.server.fastmcp import FastMCP
-from pipelines.sensor_pipeline import (
+from pipeline.sensor_pipeline import (
     ingest_realtime,
     load_rules,
     generate_tokens,
