@@ -40,3 +40,7 @@ def generate_tokens(ingest_realtime, load_rules):
         "tokens": tokens,
         "timestamp": datetime.utcnow().isoformat()
     }
+@asset
+def write_semantic_tokens(generate_tokens):
+    with open("data/semantic_tokens.json", "w") as f:
+        json.dump(generate_tokens, f, indent=2)
