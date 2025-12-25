@@ -2,3 +2,5 @@ dagster
 dagster-webserver
 pydantic
 great-expectations
+python-dotenv
+mcp
